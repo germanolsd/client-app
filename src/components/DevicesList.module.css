@@ -1,0 +1,27 @@
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li {
+    border-bottom: 1px solid var(--defaultBorderColor);
+    padding: var(--spacing-0-5);
+    &:first-child {
+      border-top: 1px solid var(--defaultBorderColor);
+    }
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.muted {
+  color: var(--mutedTextColor);
+  font-size: 0.8rem;
+}
+.device {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-0-5);
+}
