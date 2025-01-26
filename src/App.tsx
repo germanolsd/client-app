@@ -1,17 +1,16 @@
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import "./App.css";
 
-import { Routes, Route } from "react-router-dom";
-import DeviceList from "./pages/DeviceList.tsx";
-import DeviceDetail from "./pages/DeviceDetail.tsx";
+import { Routes, Route, Navigate } from "react-router-dom";
+import DeviceListPage from "./pages/DeviceListPage.tsx";
+import DeviceDetailPage from "./pages/DeviceDetailPage.tsx";
 
 function App() {
   return (
     <Routes>
-      <Route path="/devices" element={<DeviceList />}>
-        <Route path=":id" element={<DeviceDetail />} />
+      <Route path="/devices" element={<DeviceListPage />}>
+        <Route path=":id" element={<DeviceDetailPage />} />
       </Route>
+      <Route path="*" element={<Navigate to="/devices" />} />
     </Routes>
   );
 }
