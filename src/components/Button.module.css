@@ -1,0 +1,40 @@
+.button {
+  padding: var(--spacing-1);
+  border-radius: 5px;
+  border: none;
+  color: var(--buttonColor);
+  background-color: var(--buttonBackground);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-0-5);
+
+  &.action {
+    &.solid {
+      --buttonBackground: var(--actionColor);
+      --buttonColor: var(--invertedTextColor);
+    }
+    &.outline {
+      --buttonBackground: var(--invertedTextColor);
+      --buttonColor: var(--actionColor);
+      border: 1px solid var(--defaultBorderColor);
+    }
+  }
+  &.danger {
+    &.solid {
+      --buttonBackground: var(--dangerColor);
+      --buttonColor: var(--invertedTextColor);
+    }
+    &.outline {
+      --buttonBackground: var(--invertedTextColor);
+      --buttonColor: var(--dangerColor);
+      border: 1px solid var(--defaultBorderColor);
+    }
+  }
+  svg path {
+    fill: var(--buttonColor);
+  }
+  i {
+    display: inline-flex;
+  }
+}

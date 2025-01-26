@@ -1,0 +1,11 @@
+.TopBar {
+  background-color: var(--accentcolor);
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-left: var(--spacing-1-5);
+}
