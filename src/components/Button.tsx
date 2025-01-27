@@ -26,4 +26,13 @@ function Button({
   );
 }
 
+export enum ButtonVisual {
+  Solid = "solid",
+  Outline = "outline",
+}
+export enum ButtonType {
+  Action = "action",
+  Danger = "danger",
+}
+
 export default Button;

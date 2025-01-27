@@ -37,4 +37,11 @@
   i {
     display: inline-flex;
   }
+
+  transition: filter ease-in-out 150ms 0s;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(1.15);
+  }
 }
