@@ -13,3 +13,5 @@ export default function PlusIcon() {
     </svg>
   );
 }
+
+//This is a component so the icon can change color according to the theme when used inside buttons

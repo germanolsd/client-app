@@ -1,0 +1,24 @@
+.dialogContent {
+  padding: var(--spacing-1);
+}
+
+.dialog {
+  border: 1px solid var(--defaultBorderColor);
+  border-radius: 5px;
+  width: 95%;
+  max-width: 540px;
+  background-color: var(--mainBackgroundcolor);
+  padding: 0;
+  &::backdrop {
+    background-color: var(--modalBackdropColor);
+  }
+  box-shadow: 0 0 10px 0
+    hsl(from var(--modalBackdropColor) h s calc(l * 0.5) / 0.5);
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-0-5);
+}

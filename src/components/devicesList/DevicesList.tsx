@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Device } from "../api";
+import type { Device } from "../../api";
 import styles from "./DevicesList.module.css";
 
 type DevicesListProps = {

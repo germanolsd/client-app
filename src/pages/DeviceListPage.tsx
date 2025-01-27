@@ -1,13 +1,13 @@
 import useSWR from "swr";
 import { fetchDevices } from "../api";
 import { type Device } from "../api";
-import TopBar from "../components/TopBar";
-import TitleBar from "../components/TitleBar";
+import TopBar from "../components/topBar/TopBar";
+import TitleBar from "../components/titleBar/TitleBar";
 import styles from "./DeviceListPage.module.css";
-import Button from "../components/Button";
-import PlusIcon from "../components/PlusIcon";
-import DevicesList from "../components/DevicesList";
-import Modal from "../components/Modal";
+import Button from "../components/button/Button";
+import PlusIcon from "../components/common/PlusIcon";
+import DevicesList from "../components/devicesList/DevicesList";
+import Modal from "../components/modal/Modal";
 import { useState } from "react";
 
 const DeviceListPage = () => {

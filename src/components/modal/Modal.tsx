@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import styles from "./Modal.module.css";
-import Button, { ButtonVisual } from "./Button";
+import Button, { ButtonVisual } from "../button/Button";
 
 interface ModalProps {
   open: boolean;
@@ -52,7 +52,12 @@ const Modal: React.FC<ModalProps> = ({
   }, [open, onClose]);
 
   return (
-    <dialog ref={dialogRef} onClose={onClose} onClick={handleBackdropClick}>
+    <dialog
+      className={styles.dialog}
+      ref={dialogRef}
+      onClose={onClose}
+      onClick={handleBackdropClick}
+    >
       <div className={styles.dialogContent}>
         {children}
         <div className={styles.buttons}>
