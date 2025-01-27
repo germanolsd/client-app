@@ -7,6 +7,7 @@
   --mutedTextColor: #6e6d7a;
   --invertedTextColor: #ffffff;
   --defaultBorderColor: #48446940;
+  --modalBackdropColor: rgb(from var(--baseTextColor) r g b / 0.5);
 
   --spacing-unit: 1rem;
 
