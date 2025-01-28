@@ -35,6 +35,16 @@ body {
   color: var(--baseTextColor);
 }
 
+.globalInputSelectStyle {
+  border: 1px solid var(--defaultBorderColor);
+  border-radius: 5px;
+  padding: var(--spacing-0-5);
+  width: 100%;
+  background: none;
+  height: 38px;
+  margin-top: 5px;
+}
+
 /* @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;

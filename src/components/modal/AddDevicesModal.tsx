@@ -3,7 +3,6 @@ import Modal from "./Modal";
 import Button from "../button/Button";
 import type { Device } from "../../api";
 import { deviceTypes } from "../../api";
-import styles from "./AddDevicesModal.module.css";
 import { useEffect } from "react";
 import FormLine from "../common/FormLine";
 
@@ -40,7 +39,7 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
           errorMessage={errors.system_name?.message}
         >
           <input
-            className={styles.inputEl}
+            className="globalInputSelectStyle"
             autoComplete="never"
             {...register("system_name", {
               required: "System name is required",
@@ -51,7 +50,7 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
 
         <FormLine label="Device Type *" errorMessage={errors.type?.message}>
           <select
-            className={styles.inputEl}
+            className="globalInputSelectStyle"
             {...register("type", { required: "Type is required" })}
           >
             <option value="">Select Type</option>
@@ -68,7 +67,7 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
           errorMessage={errors.hdd_capacity?.message}
         >
           <input
-            className={styles.inputEl}
+            className="globalInputSelectStyle"
             {...register("hdd_capacity", {
               required: "HDD Capacity is required",
               pattern: {
