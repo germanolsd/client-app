@@ -4,10 +4,14 @@ const api = axios.create({
   baseURL: "http://localhost:3000",
 });
 
+export type DeviceType = "WINDOWS" | "MAC" | "LINUX";
+
+export const deviceTypes: DeviceType[] = ["WINDOWS", "MAC", "LINUX"];
+
 export type Device = {
   id: string;
   system_name: string;
-  type: "WINDOWS" | "LINUX" | "MAC";
+  type: DeviceType;
   hdd_capacity: string;
 };
 
@@ -22,6 +26,23 @@ export const fetchDevices = async (): Promise<Device[]> => {
 export const fetchDeviceById = async (id: string): Promise<Device> => {
   await delay();
   const response = await api.get(`/devices/${id}`);
+  return response.data;
+};
+
+export const createDevice = async (
+  device: Omit<Device, "id">
+): Promise<Device> => {
+  await delay();
+  const response = await api.post("/devices", device);
+  return response.data;
+};
+
+export const updateDevice = async (
+  id: string,
+  device: Omit<Device, "id">
+): Promise<Device> => {
+  await delay();
+  const response = await api.put(`/devices/${id}`, device);
   return response.data;
 };
 
