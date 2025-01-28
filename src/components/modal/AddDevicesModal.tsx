@@ -3,6 +3,9 @@ import Modal from "./Modal";
 import Button from "../button/Button";
 import type { Device } from "../../api";
 import { deviceTypes } from "../../api";
+import styles from "./AddDevicesModal.module.css";
+import { useEffect } from "react";
+import FormLine from "../common/FormLine";
 
 type AddDevicesModalProps = {
   open: boolean;
@@ -15,7 +18,14 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Omit<Device, "id">>();
+
+  useEffect(() => {
+    if (!open) {
+      reset();
+    }
+  }, [open]);
 
   return (
     <Modal
@@ -25,18 +35,25 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
       actionButton={<Button onClick={handleSubmit(onSubmit)}>Submit</Button>}
     >
       <form>
-        <div>
+        <FormLine
+          label="System name *"
+          errorMessage={errors.system_name?.message}
+        >
           <input
+            className={styles.inputEl}
+            autoComplete="never"
             {...register("system_name", {
               required: "System name is required",
             })}
             placeholder="System Name"
           />
-          {errors.system_name && <span>{errors.system_name.message}</span>}
-        </div>
+        </FormLine>
 
-        <div>
-          <select {...register("type", { required: "Type is required" })}>
+        <FormLine label="Device Type *" errorMessage={errors.type?.message}>
+          <select
+            className={styles.inputEl}
+            {...register("type", { required: "Type is required" })}
+          >
             <option value="">Select Type</option>
             {deviceTypes.map((type) => (
               <option key={type} value={type}>
@@ -44,11 +61,14 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
               </option>
             ))}
           </select>
-          {errors.type && <span>{errors.type.message}</span>}
-        </div>
+        </FormLine>
 
-        <div>
+        <FormLine
+          label="HDD Capacity *"
+          errorMessage={errors.hdd_capacity?.message}
+        >
           <input
+            className={styles.inputEl}
             {...register("hdd_capacity", {
               required: "HDD Capacity is required",
               pattern: {
@@ -58,8 +78,7 @@ function AddDevicesModal({ open, onClose, onSubmit }: AddDevicesModalProps) {
             })}
             placeholder="HDD Capacity (GB)"
           />
-          {errors.hdd_capacity && <span>{errors.hdd_capacity.message}</span>}
-        </div>
+        </FormLine>
       </form>
     </Modal>
   );
