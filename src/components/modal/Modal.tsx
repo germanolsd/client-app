@@ -7,6 +7,7 @@ interface ModalProps {
   onClose?: () => void;
   children: React.ReactNode;
   actionButton?: React.ReactNode;
+  title?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -14,6 +15,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   actionButton,
+  title,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -59,6 +61,7 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div className={styles.dialogContent}>
+        {title && <h2>{title}</h2>}
         {children}
         <div className={styles.buttons}>
           <Button
