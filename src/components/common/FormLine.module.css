@@ -1,0 +1,19 @@
+.formLabel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.formLine {
+  padding-bottom: var(--spacing-2);
+}
+
+.errorMsg {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--dangerColor);
+  font-size: 0.85rem;
+}
