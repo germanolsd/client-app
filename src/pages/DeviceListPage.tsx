@@ -9,6 +9,7 @@ import PlusIcon from "../components/common/PlusIcon";
 import DevicesList from "../components/devicesList/DevicesList";
 import EditDevicesModal from "../components/modal/EditDevicesModal";
 import DeleteDeviceModal from "../components/modal/DeleteDeviceModal";
+import Filter from "../components/filter/filter";
 import { useState } from "react";
 import {
   handleAddDevice,
@@ -18,7 +19,7 @@ import {
 
 const DeviceListPage = () => {
   const {
-    data,
+    data: devicesList,
     error,
     isLoading,
     mutate: mutateDevicesCache,
@@ -28,6 +29,9 @@ const DeviceListPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState<Device | undefined>(
     undefined
+  );
+  const [filteredDevicesList, setFilteredDecicesList] = useState<Device[]>(
+    devicesList || []
   );
 
   const handleEditSubmit = async (formData: Omit<Device, "id">) => {
@@ -82,14 +86,22 @@ const DeviceListPage = () => {
     <div className={styles.AppContainer}>
       <TopBar />
 
+      <Filter
+        data={devicesList || []}
+        onFilter={(filteredDevices: Device[]) => {
+          setFilteredDecicesList(filteredDevices);
+        }}
+      />
+
       <div className={styles.ContentArea}>
         <TitleBar title="Devices">
           <Button onClick={openAddDevicesModal} icon={<PlusIcon />}>
             Add device
           </Button>
         </TitleBar>
+
         <DevicesList
-          items={data}
+          items={filteredDevicesList}
           isLoading={isLoading}
           error={error}
           openDeleteModal={(device) => {
