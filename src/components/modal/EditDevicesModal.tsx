@@ -39,7 +39,11 @@ function EditDevicesModal({
   }, [open, selectedDevice]);
 
   const onCloseHandler = () => {
-    reset();
+    reset({
+      system_name: "",
+      type: undefined,
+      hdd_capacity: "",
+    });
     onClose();
   };
 
