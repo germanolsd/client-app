@@ -4,6 +4,9 @@
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  > * {
+    margin-top: 5px;
+  }
 }
 
 .formLine {
