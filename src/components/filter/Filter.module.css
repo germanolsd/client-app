@@ -1,0 +1,80 @@
+.filterContainer {
+  font-size: 0.8rem;
+  margin-top: var(--spacing-1-5);
+  form {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-0-5);
+
+    > * {
+      flex-basis: 30%;
+      flex-grow: 1;
+    }
+  }
+}
+
+.container {
+  position: relative;
+  font-size: 0.8rem;
+}
+
+.input {
+  border: 1px solid var(--defaultBorderColor);
+  border-radius: 5px;
+  width: 100%;
+  background: none;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-0-5);
+  justify-content: flex-start;
+  gap: calc(var(--spacing-0-5) * 0.3);
+  cursor: pointer;
+}
+
+.dropDown {
+  position: absolute;
+  top: 100%;
+  margin-top: 3px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--spacing-0-5);
+  padding: var(--spacing-1) var(--spacing-0-5);
+  background-color: var(--mainBackgroundcolor);
+  width: 100%;
+  border: 1px solid var(--defaultBorderColor);
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0
+    hsl(from var(--modalBackdropColor) h s calc(l * 0.5) / 0.5);
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: var(--spacing-0-5) var(--spacing-1);
+  background-color: var(--accentcolor);
+  color: var(--invertedTextColor);
+  transition: background-color 180ms ease 0s;
+  cursor: pointer;
+  border-radius: 16px;
+  font-size: 0.75rem;
+
+  &:hover {
+    background-color: hsl(from var(--actionColor) h s calc(l * 0.75));
+  }
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.selected {
+  transform: scale(0.9);
+  &:hover {
+    background-color: hsl(from var(--dangerColor) h s calc(l * 0.5));
+  }
+}
