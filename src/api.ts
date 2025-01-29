@@ -46,4 +46,15 @@ export const updateDevice = async (
   return response.data;
 };
 
+export const deleteDevice = async (id: string): Promise<boolean> => {
+  try {
+    await delay();
+    await api.delete(`/devices/${id}`);
+    return true;
+  } catch (error) {
+    console.error("Failed to delete device:", error);
+    return false;
+  }
+};
+
 export default api;
