@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { deviceTypes } from "../../api";
+import { Device, deviceTypes } from "../../api";
 
 type FilterProps = {
-  onFilter: (state: FilterState) => void;
+  data: Device[];
+  onFilter: (data: Device[]) => void;
 };
 
-type FilterState = {
+export type FilterState = {
   searchText: string;
-  deviceType: string;
+  deviceType: string[];
   sortOrder: string;
 };
 
-const Filter = ({ onFilter }: FilterProps) => {
+const Filter = ({ onFilter, data }: FilterProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getInitialState = (): FilterState => {
+    const typeParam = searchParams.get("type");
     return {
       searchText: searchParams.get("search") || "",
-      deviceType: searchParams.get("type") || "",
+      deviceType: typeParam ? typeParam.split(",") : [],
       sortOrder: searchParams.get("sort") || "asc",
     };
   };
@@ -26,15 +28,36 @@ const Filter = ({ onFilter }: FilterProps) => {
   const [formData, setFormData] = useState<FilterState>(getInitialState());
 
   useEffect(() => {
-    onFilter(formData);
-
     // Update URL params
     const params: { [key: string]: string } = {};
     if (formData.searchText) params.search = formData.searchText;
-    if (formData.deviceType) params.type = formData.deviceType;
+    if (formData.deviceType.length) params.type = formData.deviceType.join(",");
     if (formData.sortOrder) params.sort = formData.sortOrder;
 
     setSearchParams(params);
+
+    // Filter data
+    let filteredData = data;
+    if (formData.deviceType?.[0]?.toLowerCase() !== "all") {
+      filteredData = data.filter((device) =>
+        formData.deviceType.includes(device.type)
+      );
+    }
+    if (formData.searchText) {
+      filteredData = filteredData.filter((device) =>
+        device.system_name
+          .toLowerCase()
+          .includes(formData.searchText.toLowerCase())
+      );
+    }
+
+    filteredData = filteredData.sort((a, b) => {
+      const numA = parseInt(a.hdd_capacity);
+      const numB = parseInt(b.hdd_capacity);
+      return formData.sortOrder === "asc" ? numA - numB : numB - numA;
+    });
+
+    onFilter(filteredData);
   }, [formData, setSearchParams]);
 
   const deviceTypeValues = deviceTypes;
@@ -47,10 +70,23 @@ const Filter = ({ onFilter }: FilterProps) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name === "deviceType") {
+      const selectedOptions = Array.from(
+        (e.target as HTMLSelectElement).selectedOptions,
+        (option) => option.value
+      );
+      console.log("updating devicetyoe filter");
+      console.log(selectedOptions);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: selectedOptions,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   return (
@@ -70,8 +106,9 @@ const Filter = ({ onFilter }: FilterProps) => {
           value={formData.deviceType}
           onChange={handleInputChange}
           className="globalInputSelectStyle"
+          multiple
         >
-          <option value="">All</option>
+          <option value="all">All</option>
           {deviceTypeValues.map((option, index) => (
             <option key={index} value={option}>
               {option}
