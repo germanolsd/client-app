@@ -44,11 +44,10 @@ body {
   width: 100%;
   background: none;
   height: 38px;
-  margin-top: 5px;
-}
+  font-size: 0.8rem;
+  cursor: pointer;
 
-/* @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-} */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
