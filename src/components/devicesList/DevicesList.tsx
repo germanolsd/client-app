@@ -6,16 +6,16 @@ type DevicesListProps = {
   items: Device[] | undefined;
   isLoading?: boolean;
   error?: boolean;
-  invokeEditModal: (device: Device) => void;
-  invokeDeleteModal: (device: Device) => void;
+  openEditModal: (device: Device) => void;
+  openDeleteModal: (device: Device) => void;
 };
 
 export default function DevicesList({
   items,
   isLoading,
   error,
-  invokeEditModal,
-  invokeDeleteModal,
+  openEditModal,
+  openDeleteModal,
 }: DevicesListProps) {
   if (error) {
     return <p>Error loading devices</p>;
@@ -32,8 +32,8 @@ export default function DevicesList({
             <DeviceListItem
               key={device.id}
               device={device}
-              invokeEditModal={invokeEditModal}
-              invokeDeleteModal={invokeDeleteModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
             />
           ))}
         </ul>

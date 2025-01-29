@@ -5,8 +5,8 @@ import styles from "./DevicesList.module.css";
 
 type DeviceListItemProps = {
   device: Device;
-  invokeEditModal: (device: Device) => void;
-  invokeDeleteModal: (device: Device) => void;
+  openEditModal: (device: Device) => void;
+  openDeleteModal: (device: Device) => void;
 };
 
 type DeviceType = Device["type"];
@@ -19,8 +19,8 @@ const iconMap: Record<DeviceType, string> = {
 
 const DeviceListItem = ({
   device,
-  invokeEditModal,
-  invokeDeleteModal,
+  openEditModal,
+  openDeleteModal,
 }: DeviceListItemProps) => {
   const [showOverflowMenu, setShowOverflowMenu] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -51,8 +51,8 @@ const DeviceListItem = ({
         {showOverflowMenu && (
           <OverFlowMenu
             triggerRef={triggerRef}
-            onEditHandler={() => invokeEditModal(device)}
-            onDeleteHandler={() => invokeDeleteModal(device)}
+            onEditHandler={() => openEditModal(device)}
+            onDeleteHandler={() => openDeleteModal(device)}
           />
         )}
       </div>
