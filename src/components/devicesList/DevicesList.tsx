@@ -1,30 +1,22 @@
-import { useEffect } from "react";
 import type { Device } from "../../api";
 import styles from "./DevicesList.module.css";
+import DeviceListItem from "./DeviceListItem";
 
 type DevicesListProps = {
   items: Device[] | undefined;
   isLoading?: boolean;
   error?: boolean;
-};
-
-type DeviceType = Device["type"];
-
-const iconMap: Record<DeviceType, string> = {
-  WINDOWS: "./windows.svg",
-  MAC: "./macos.svg",
-  LINUX: "./linux.svg",
+  invokeEditModal: (device: Device) => void;
+  invokeDeleteModal: (device: Device) => void;
 };
 
 export default function DevicesList({
   items,
   isLoading,
   error,
+  invokeEditModal,
+  invokeDeleteModal,
 }: DevicesListProps) {
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   if (error) {
     return <p>Error loading devices</p>;
   }
@@ -37,19 +29,12 @@ export default function DevicesList({
       ) : (
         <ul className={styles.list}>
           {items?.map((device) => (
-            <li key={device.id}>
-              <div className={styles.device}>
-                <img src={iconMap[device.type]} alt="" />
-                <span>{device.system_name}</span>
-              </div>
-              <span className={styles.muted}>
-                <span className={styles.capitalize}>
-                  {device.type?.toLowerCase()}
-                </span>
-                <span> workstation</span>
-                <span> - {device.hdd_capacity} GB</span>
-              </span>
-            </li>
+            <DeviceListItem
+              key={device.id}
+              device={device}
+              invokeEditModal={invokeEditModal}
+              invokeDeleteModal={invokeDeleteModal}
+            />
           ))}
         </ul>
       )}

@@ -9,6 +9,14 @@
     &:first-child {
       border-top: 1px solid var(--defaultBorderColor);
     }
+    transition: background-color 180ms ease 0s;
+    &:hover {
+      background-color: var(--hoverBackgroundColor);
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
   }
 }
 
@@ -24,4 +32,27 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-0-5);
+}
+
+.deviceInfo {
+  flex: 1;
+}
+
+.menuTrigger {
+  background: none;
+  border: none;
+  padding: var(--spacing-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--activeInteractionColor);
+    border-radius: 4px;
+  }
+}
+
+.menuContainer {
+  position: relative;
 }
