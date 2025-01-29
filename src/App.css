@@ -8,6 +8,8 @@
   --invertedTextColor: #ffffff;
   --defaultBorderColor: #48446940;
   --modalBackdropColor: rgb(from var(--baseTextColor) r g b / 0.5);
+  --hoverBackgroundColor: #f4f5f5;
+  --activeInteractionColor: #e8e8ea;
 
   --spacing-unit: 1rem;
 
