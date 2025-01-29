@@ -2,6 +2,7 @@ import OverFlowMenu from "./OverFlowMenu";
 import type { Device } from "../../api";
 import { useState, useRef } from "react";
 import styles from "./DevicesList.module.css";
+import { useOnClickOutside } from "usehooks-ts";
 
 type DeviceListItemProps = {
   device: Device;
@@ -25,6 +26,9 @@ const DeviceListItem = ({
   const [showOverflowMenu, setShowOverflowMenu] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setShowOverflowMenu(false));
+
   return (
     <li key={device.id}>
       <div className={styles.deviceInfo}>
@@ -43,17 +47,27 @@ const DeviceListItem = ({
       <div className={styles.menuContainer}>
         <button
           ref={triggerRef}
-          className={styles.menuTrigger}
+          className={`${styles.menuTrigger} ${
+            showOverflowMenu ? styles.active : ""
+          }`}
           onClick={() => setShowOverflowMenu(!showOverflowMenu)}
         >
           <img src="./dotdotdot.svg" alt="menu" />
         </button>
         {showOverflowMenu && (
-          <OverFlowMenu
-            triggerRef={triggerRef}
-            onEditHandler={() => openEditModal(device)}
-            onDeleteHandler={() => openDeleteModal(device)}
-          />
+          <div ref={ref}>
+            <OverFlowMenu
+              triggerRef={triggerRef}
+              onEditHandler={() => {
+                openEditModal(device);
+                setShowOverflowMenu(false);
+              }}
+              onDeleteHandler={() => {
+                openDeleteModal(device);
+                setShowOverflowMenu(false);
+              }}
+            />
+          </div>
         )}
       </div>
     </li>
