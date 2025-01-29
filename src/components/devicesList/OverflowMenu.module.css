@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+}
+
+.dotButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  transition: background-color 180ms ease 0s;
+  position: relative;
+
+  &.active {
+    background-color: var(--activeInteractionColor);
+  }
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 120px;
+  z-index: 1000;
+  box-shadow: 0px 2px 4px 0px #211f3326;
+
+  & button {
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    padding: var(--spacing-0-5);
+    padding-right: var(--spacing-2);
+    border: none;
+  }
+}
+.invertY {
+  top: unset;
+  bottom: 100%;
+}
+.danger {
+  color: var(--dangerColor);
+}
