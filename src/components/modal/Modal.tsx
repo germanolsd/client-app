@@ -59,20 +59,23 @@ const Modal: React.FC<ModalProps> = ({
       ref={dialogRef}
       onClose={onClose}
       onClick={handleBackdropClick}
+      data-testid="modal"
     >
-      <div className={styles.dialogContent}>
-        {title && <h2>{title}</h2>}
-        {children}
-        <div className={styles.buttons}>
-          <Button
-            visual={ButtonVisual.Outline}
-            onClick={() => dialogRef.current?.close()}
-          >
-            Cancel
-          </Button>
-          {actionButton}
+      {open && (
+        <div className={styles.dialogContent}>
+          {title && <h2>{title}</h2>}
+          {children}
+          <div className={styles.buttons}>
+            <Button
+              visual={ButtonVisual.Outline}
+              onClick={() => dialogRef.current?.close()}
+            >
+              Cancel
+            </Button>
+            {actionButton}
+          </div>
         </div>
-      </div>
+      )}
     </dialog>
   );
 };
