@@ -40,7 +40,9 @@ const DeviceListPage = () => {
           mutateDevicesCache(
             (devices = []) =>
               devices.map((device) =>
-                device.id === selectedDevice.id ? (formData as Device) : device
+                device.id === selectedDevice.id
+                  ? { ...device, ...formData }
+                  : device
               ),
             { revalidate: false }
           );
