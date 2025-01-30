@@ -16,9 +16,6 @@ export type FilterState = {
 };
 
 const Filter = ({ data, children }: FilterProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [filteredData, setFilteredData] = useState<Device[]>([]);
-
   const getInitialState = (): FilterState => {
     const typeParam = searchParams.get("type");
     return {
@@ -27,44 +24,47 @@ const Filter = ({ data, children }: FilterProps) => {
       sortOrder: searchParams.get("sort") || "asc",
     };
   };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filteredData, setFilteredData] = useState<Device[]>([]);
+  const [filterState, setFilterState] = useState<FilterState>(
+    getInitialState()
+  );
 
-  function applyDataFilters() {
+  function getFilteredData() {
     let filteredData = data;
-    if (formData.deviceType?.length) {
+    if (filterState.deviceType?.length) {
       filteredData = data.filter((device) =>
-        formData.deviceType.includes(device.type)
+        filterState.deviceType.includes(device.type)
       );
     }
-    if (formData.searchText) {
+    if (filterState.searchText) {
       filteredData = filteredData.filter((device) =>
         device.system_name
           .toLowerCase()
-          .includes(formData.searchText.toLowerCase())
+          .includes(filterState.searchText.toLowerCase())
       );
     }
 
     filteredData = filteredData.sort((a, b) => {
       const numA = parseInt(a.hdd_capacity);
       const numB = parseInt(b.hdd_capacity);
-      return formData.sortOrder === "asc" ? numA - numB : numB - numA;
+      return filterState.sortOrder === "asc" ? numA - numB : numB - numA;
     });
     return filteredData;
   }
 
-  const [formData, setFormData] = useState<FilterState>(getInitialState());
-
   useEffect(() => {
     // Update URL params
     const params: { [key: string]: string } = {};
-    if (formData.searchText) params.search = formData.searchText;
-    if (formData.deviceType.length) params.type = formData.deviceType.join(",");
-    if (formData.sortOrder) params.sort = formData.sortOrder;
+    if (filterState.searchText) params.search = filterState.searchText;
+    if (filterState.deviceType.length)
+      params.type = filterState.deviceType.join(",");
+    if (filterState.sortOrder) params.sort = filterState.sortOrder;
 
     setSearchParams(params);
 
-    // Filter data
-    setFilteredData(applyDataFilters());
-  }, [formData, setSearchParams, data]);
+    setFilteredData(getFilteredData());
+  }, [filterState, setSearchParams, data]);
 
   const deviceTypeValues = deviceTypes;
   const ascDescValue = [
@@ -76,7 +76,7 @@ const Filter = ({ data, children }: FilterProps) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFilterState((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -89,7 +89,7 @@ const Filter = ({ data, children }: FilterProps) => {
           <input
             type="text"
             name="searchText"
-            value={formData.searchText}
+            value={filterState.searchText}
             onChange={handleInputChange}
             placeholder="Search"
             className="globalInputSelectStyle"
@@ -97,9 +97,9 @@ const Filter = ({ data, children }: FilterProps) => {
 
           <TagSelector
             options={deviceTypeValues}
-            selected={formData.deviceType}
+            selected={filterState.deviceType}
             onSelect={(selected) => {
-              setFormData((prev) => ({
+              setFilterState((prev) => ({
                 ...prev,
                 deviceType: selected,
               }));
@@ -108,7 +108,7 @@ const Filter = ({ data, children }: FilterProps) => {
 
           <select
             name="sortOrder"
-            value={formData.sortOrder}
+            value={filterState.sortOrder}
             onChange={handleInputChange}
             aria-label="Sort order"
             className="globalInputSelectStyle"
