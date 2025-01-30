@@ -4,7 +4,7 @@ import { Device, DeviceType, deviceTypes } from "../../api";
 import TagSelector from "./TagSelector";
 import styles from "./Filter.module.css";
 
-type FilterProps = {
+export type FilterProps = {
   data: Device[];
   children: (data: Device[]) => React.ReactNode;
 };
