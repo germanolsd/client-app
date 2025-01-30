@@ -20,7 +20,7 @@ function Button({
       className={`${styles.button} ${styles[type]} ${styles[visual]}`}
       onClick={onClick}
     >
-      {icon && <i>{icon}</i>}
+      {icon && <i data-testid="button-icon">{icon}</i>}
       {children}
     </button>
   );
