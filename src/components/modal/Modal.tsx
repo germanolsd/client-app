@@ -39,6 +39,9 @@ const Modal: React.FC<ModalProps> = ({
       if (event.key === "Escape") {
         dialogRef.current?.close();
         event.preventDefault();
+        //being a dialog element, escape key natively closes the dialog without the need for this
+        //but SAFARI (it's always safari 😑) also listens for the escape key and exits fullscreen mode
+        //this workaround prevents that
       }
     };
 
