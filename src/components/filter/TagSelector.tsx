@@ -31,6 +31,19 @@ const TagSelector = ({ options, selected, onSelect }: TagSelectorProps) => {
     }
   };
 
+  const removeSelectedOption = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    option: DeviceType
+  ) => {
+    e.stopPropagation();
+    //prevents dropdown from opening when removing options
+    onSelect(selected.filter((selectedOption) => selectedOption !== option));
+  };
+
+  const addSelectedOption = (option: DeviceType) => {
+    onSelect([...selected, option]);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.input} onClick={openDropdown}>
@@ -38,12 +51,7 @@ const TagSelector = ({ options, selected, onSelect }: TagSelectorProps) => {
         {selected.map((option) => (
           <div
             key={option}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect(
-                selected.filter((selectedOption) => selectedOption !== option)
-              );
-            }}
+            onClick={(e) => removeSelectedOption(e, option)}
             aria-label={`click to remove ${option} option`}
             className={`${styles.chip} ${styles.selected}`}
           >
@@ -56,9 +64,7 @@ const TagSelector = ({ options, selected, onSelect }: TagSelectorProps) => {
           {unselectedOptions.map((option) => (
             <div
               key={option}
-              onClick={() => {
-                onSelect([...selected, option]);
-              }}
+              onClick={() => addSelectedOption(option)}
               className={styles.chip}
             >
               {option}
